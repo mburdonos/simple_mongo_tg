@@ -135,7 +135,7 @@ celerybeat.pid
 
 # Environments
 .env
-.env.dev
+.env.example
 .venv
 env/
 venv/
@@ -167,3 +167,5 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 /postgres_data/
+
+./mongo_db
