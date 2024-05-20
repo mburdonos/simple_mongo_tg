@@ -28,7 +28,7 @@ class MongoDb:
                 "$match": {
                     "dt": {
                         "$gte": input_data.get('dt_from'),
-                        "$lt": input_data.get('dt_upto')
+                        "$lte": input_data.get('dt_upto')
                     }
                 }
             },
@@ -41,7 +41,8 @@ class MongoDb:
                     },
                     "dataset": {"$sum": "$value"}
                 }
-            }
+            },
+            {"$sort": {"_id": 1}}
         ]
         result_data = []
         async for data in my_collection.aggregate(pipeline=query):

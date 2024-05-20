@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher, types, F
 
 from core.config import settings
 from utils.validate import validate_input_data
-from utils.format_data import create_structure
+from utils.format_data import create_structure, create_diapozone
 from db.mongo_db import MongoDb
 
 
@@ -23,9 +23,11 @@ async def cmd_start(message: types.Message):
     if isinstance(validated_data, str):
         await message.answer(validated_data)
     else:
+        # создаем диапозон дат, чтобы точно все попали
+        diapozon_date = create_diapozone(data=validated_data)
         # если данные корректны, то выполняем запрос к хранилищу
         async for data in mongo_db.get_aggreate_data(input_data=validated_data):
-            data_for_send = create_structure(data)
+            data_for_send = create_structure(data=data, date_range=diapozon_date)
             await message.answer(dumps(data_for_send))
 async def main():
     await dp.start_polling(bot)
