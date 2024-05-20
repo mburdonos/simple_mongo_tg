@@ -14,10 +14,14 @@ class Project(BaseModel):
 class TelegramBot(BaseModel):
     name: str
     token: str
+class Mongo(BaseModel):
+    host: str
+    port: str
 
 class Settings(BaseSettings):
     project: Project
     telegram_bot: TelegramBot
+    mongo: Mongo
 
     model_config = SettingsConfigDict(env_file=os.path.join(ENV_DIR, ".env"), env_nested_delimiter="__")
 
